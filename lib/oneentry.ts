@@ -1,9 +1,9 @@
 // Import the `defineOneEntry` function to create an API client instance
-import { defineOneEntry } from 'oneentry';
+import { defineOneEntry } from "oneentry";
 
 // Import helper functions for handling refresh tokens
-import retrieveRefreshToken from '@/actions/auth/retrieveRefreshToken';
-import storeRefreshToken from '@/actions/auth/storeRefreshToken';
+import retrieveRefreshToken from "@/actions/auth/retrieveRefreshToken";
+import storeRefreshToken from "@/actions/auth/storeRefreshToken";
 
 // Define the type for the API client, which can initially be `null`
 export type ApiClientType = ReturnType<typeof defineOneEntry> | null;
@@ -21,7 +21,7 @@ async function setupApiClient(): Promise<ReturnType<typeof defineOneEntry>> {
 
   // Throw an error if the API URL is not defined
   if (!apiUrl) {
-    throw new Error('ONEENTRY_PROJECT_URL is missing');
+    throw new Error("ONEENTRY_PROJECT_URL is missing");
   }
 
   // Check if the API client is already initialized
@@ -32,8 +32,8 @@ async function setupApiClient(): Promise<ReturnType<typeof defineOneEntry>> {
 
       // Create a new instance of the API client with the required configuration
       apiClient = defineOneEntry(apiUrl, {
-        token: process.env.ONENETRY_TOKEN, // Token for authentication
-        langCode: 'en_US', // Language code for the API
+        token: process.env.ONEENTRY_TOKEN, // Token for authentication
+        langCode: "en_US", // Language code for the API
         auth: {
           refreshToken: refreshToken || undefined, // Use the retrieved refresh token or `undefined`
           customAuth: false, // Disable custom authentication
@@ -45,13 +45,13 @@ async function setupApiClient(): Promise<ReturnType<typeof defineOneEntry>> {
       });
     } catch (error) {
       // Log an error if there is an issue retrieving the refresh token
-      console.error('Error fetching refresh token:', error);
+      console.error("Error fetching refresh token:", error);
     }
   }
 
   // If the API client is still not initialized, throw an error
   if (!apiClient) {
-    throw new Error('Failed to initialize API client');
+    throw new Error("Failed to initialize API client");
   }
 
   // Return the initialized API client
@@ -73,7 +73,7 @@ export async function fetchApiClient(): Promise<
 
   // At this point, `apiClient` should not be null. If it is, throw an error.
   if (!apiClient) {
-    throw new Error('API client is still null after setup');
+    throw new Error("API client is still null after setup");
   }
 
   // Return the initialized API client
